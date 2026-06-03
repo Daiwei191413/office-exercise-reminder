@@ -448,14 +448,50 @@ const App = {
         lucide.createIcons();
     },
 
+    // SVG 人物生成器
+    getFigureSVG(animClass, size = 'small') {
+        const cls = size === 'large' ? 'figure-svg-large' : 'figure-svg-small';
+        return `
+            <svg class="figure-svg ${cls} ${animClass}" viewBox="0 0 100 160">
+                <g class="figure-chair">
+                    <rect x="18" y="108" width="64" height="6" rx="2"/>
+                    <rect x="22" y="114" width="5" height="28" rx="1"/>
+                    <rect x="73" y="114" width="5" height="28" rx="1"/>
+                </g>
+                <line class="figure-leg figure-leg-left" x1="42" y1="105" x2="30" y2="148"/>
+                <line class="figure-leg figure-leg-right" x1="58" y1="105" x2="70" y2="148"/>
+                <line class="figure-torso" x1="50" y1="55" x2="50" y2="105"/>
+                <line class="figure-arm figure-arm-left" x1="50" y1="62" x2="22" y2="88"/>
+                <line class="figure-arm figure-arm-right" x1="50" y1="62" x2="78" y2="88"/>
+                <circle class="figure-head" cx="50" cy="35" r="16"/>
+                <circle class="figure-eye" cx="44" cy="32" r="2.5"/>
+                <circle class="figure-eye" cx="56" cy="32" r="2.5"/>
+            </svg>
+        `;
+    },
+
+    getAnimClass(id) {
+        const map = {
+            'neck-rotate': 'anim-neck-rotate',
+            'shoulder-roll': 'anim-shoulder-roll',
+            'eye-rest': 'anim-eye-rest',
+            'wrist-stretch': 'anim-wrist-stretch',
+            'waist-twist': 'anim-waist-twist',
+            'stand-stretch': 'anim-stand-stretch',
+            'deep-breath': 'anim-deep-breath',
+            'leg-stretch': 'anim-leg-stretch'
+        };
+        return map[id] || '';
+    },
+
     // 渲染运动库
     renderExerciseList() {
         const container = document.getElementById('exercise-list');
         container.innerHTML = EXERCISES.map((ex, i) => `
             <div class="exercise-card bg-slate-50 dark:bg-slate-700/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700 cursor-pointer" style="animation-delay: ${i * 0.05}s" data-id="${ex.id}">
                 <div class="flex items-start gap-3">
-                    <div class="w-10 h-10 rounded-lg bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center text-primary-500 shrink-0">
-                        <i data-lucide="${ex.icon}" class="w-5 h-5"></i>
+                    <div class="card-figure-wrap">
+                        ${this.getFigureSVG(this.getAnimClass(ex.id), 'small')}
                     </div>
                     <div class="min-w-0">
                         <h4 class="font-semibold text-sm truncate">${ex.name}</h4>
@@ -583,8 +619,10 @@ const App = {
         // 填充弹窗内容
         document.getElementById('exercise-name').textContent = ex.name;
         document.getElementById('exercise-desc').textContent = ex.desc;
-        const iconBox = document.getElementById('exercise-icon');
-        iconBox.innerHTML = `<i data-lucide="${ex.icon}" class="w-10 h-10"></i>`;
+
+        // 设置 SVG 人物动画
+        const figureSvg = document.getElementById('reminder-figure');
+        figureSvg.className = `figure-svg figure-svg-large ${this.getAnimClass(ex.id)}`;
 
         const stepsBox = document.getElementById('exercise-steps');
         stepsBox.innerHTML = ex.steps.map((s, i) => `
@@ -598,7 +636,6 @@ const App = {
         const overlay = document.getElementById('reminder-overlay');
         overlay.classList.remove('hidden');
         requestAnimationFrame(() => overlay.classList.add('show'));
-        lucide.createIcons();
 
         // 开始倒计时
         this.startCountdown(ex.duration);
