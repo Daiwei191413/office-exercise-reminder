@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运动小助手 — 白领久坐监督器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7', 400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857', 800: '#065f46', 900: '#064e3b' },
+                        accent: { 50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a' },
+                        warn: { 50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309', 800: '#92400e', 900: '#78350f' },
+                        rose: { 50: '#fff1f2', 100: '#ffe4e6', 200: '#fecdd3', 300: '#fda4af', 400: '#fb7185', 500: '#f43f5e', 600: '#e11d48', 700: '#be123c', 800: '#9f1239', 900: '#881337' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100">
+
+    <!-- 顶部导航 -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-3xl mx-auto px-4 h-14 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-400 to-accent-500 flex items-center justify-center text-white">
+                    <i data-lucide="activity" class="w-5 h-5"></i>
+                </div>
+                <h1 class="font-bold text-lg tracking-tight">运动小助手</h1>
+            </div>
+            <nav class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 rounded-full p-1">
+                <button data-view="dashboard" class="nav-tab px-4 py-1.5 rounded-full text-sm font-medium transition-all bg-white dark:bg-slate-700 shadow-sm text-primary-600 dark:text-primary-400">
+                    仪表盘
+                </button>
+                <button data-view="exercises" class="nav-tab px-4 py-1.5 rounded-full text-sm font-medium transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
+                    运动库
+                </button>
+                <button data-view="settings" class="nav-tab px-4 py-1.5 rounded-full text-sm font-medium transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
+                    设置
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-6">
+
+        <!-- ========== 仪表盘 ========== -->
+        <section id="view-dashboard" class="view-section space-y-6">
+            <!-- 今日概览卡片 -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-700 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 rounded-bl-full -mr-8 -mt-8 opacity-60"></div>
+                <div class="relative">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">今日运动进度</p>
+                            <p class="text-3xl font-bold mt-1"><span id="today-count">0</span> <span class="text-base font-normal text-slate-400">/ <span id="target-count">8</span> 次</span></p>
+                        </div>
+                        <div id="progress-ring" class="relative w-16 h-16">
+                            <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                                <circle cx="18" cy="18" r="15.915" fill="none" stroke="currentColor" stroke-width="3" class="text-slate-100 dark:text-slate-700"></circle>
+                                <circle id="progress-circle" cx="18" cy="18" r="15.915" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 100" class="text-primary-500 transition-all duration-700"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-primary-600 dark:text-primary-400" id="progress-text">0%</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-gradient-to-r from-primary-400 to-accent-500 rounded-full transition-all duration-700" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 工作状态 -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm border border-slate-100 dark:border-slate-700">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-warn-50 dark:bg-warn-900/30 flex items-center justify-center text-warn-600 dark:text-warn-400">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">已连续工作</p>
+                            <p class="text-xl font-bold" id="work-timer">00:00</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 dark:text-slate-500">预计 <span id="next-reminder" class="text-warn-600 dark:text-warn-400 font-medium">--</span> 后提醒</p>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm border border-slate-100 dark:border-slate-700">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-900/30 flex items-center justify-center text-rose-600 dark:text-rose-400">
+                            <i data-lucide="flame" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">连续坚持</p>
+                            <p class="text-xl font-bold"><span id="streak-days">0</span> <span class="text-sm font-normal">天</span></p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 dark:text-slate-500">本周已完成 <span id="week-count" class="text-slate-600 dark:text-slate-300 font-medium">0</span> 次</p>
+                </div>
+            </div>
+
+            <!-- 快捷操作 -->
+            <div class="bg-gradient-to-br from-primary-500 to-accent-600 rounded-2xl p-6 text-white shadow-lg shadow-primary-500/20 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-10 -mt-10"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-8 -mb-8"></div>
+                <div class="relative">
+                    <h3 class="font-bold text-lg mb-1">该动一动啦？</h3>
+                    <p class="text-primary-100 text-sm mb-4">久坐伤身，现在就开始一次微运动吧</p>
+                    <button id="btn-start-now" class="bg-white text-primary-600 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                        <i data-lucide="play" class="w-5 h-5 fill-current"></i>
+                        立即开始运动
+                    </button>
+                </div>
+            </div>
+
+            <!-- 今日记录 -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm border border-slate-100 dark:border-slate-700">
+                <h3 class="font-semibold mb-4 flex items-center gap-2">
+                    <i data-lucide="history" class="w-4 h-4 text-slate-400"></i>
+                    今日记录
+                </h3>
+                <div id="today-log" class="space-y-2">
+                    <p class="text-sm text-slate-400 text-center py-4">今天还没有运动记录，快开始第一次吧！</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 运动库 ========== -->
+        <section id="view-exercises" class="view-section hidden space-y-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm border border-slate-100 dark:border-slate-700">
+                <h2 class="font-bold text-lg mb-1">办公室微运动库</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">每个动作 30-60 秒，原地即可完成</p>
+                <div id="exercise-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 设置 ========== -->
+        <section id="view-settings" class="view-section hidden space-y-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
+                <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+                    <h2 class="font-bold text-lg">提醒设置</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">自定义你的运动提醒节奏</p>
+                </div>
+
+                <!-- 提醒间隔 -->
+                <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+                    <label class="block text-sm font-medium mb-3">提醒间隔</label>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button data-interval="30" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary-300">30分</button>
+                        <button data-interval="45" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary-300">45分</button>
+                        <button data-interval="60" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-primary-500 text-primary-600 bg-primary-50 dark:bg-primary-900/20">60分</button>
+                        <button data-interval="90" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary-300">90分</button>
+                    </div>
+                </div>
+
+                <!-- 每日目标 -->
+                <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+                    <label class="block text-sm font-medium mb-3">每日运动目标（次）</label>
+                    <input type="range" id="target-slider" min="4" max="16" step="1" value="8" class="w-full accent-primary-500 mb-2">
+                    <div class="flex justify-between text-xs text-slate-400">
+                        <span>4次</span>
+                        <span id="target-display" class="text-primary-600 dark:text-primary-400 font-bold text-base">8 次</span>
+                        <span>16次</span>
+                    </div>
+                </div>
+
+                <!-- 免打扰 -->
+                <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+                    <div class="flex items-center justify-between mb-3">
+                        <label class="text-sm font-medium">免打扰模式</label>
+                        <button id="toggle-dnd" class="relative w-12 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors">
+                            <span class="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow transition-transform"></span>
+                        </button>
+                    </div>
+                    <div id="dnd-time" class="grid grid-cols-2 gap-3 opacity-50 pointer-events-none transition-opacity">
+                        <div>
+                            <label class="text-xs text-slate-500 dark:text-slate-400 mb-1 block">开始时间</label>
+                            <input type="time" id="dnd-start" value="12:00" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm">
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-500 dark:text-slate-400 mb-1 block">结束时间</label>
+                            <input type="time" id="dnd-end" value="13:30" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 通知权限 -->
+                <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium">浏览器通知</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">后台运行时也能收到提醒</p>
+                        </div>
+                        <button id="btn-notify-perm" class="px-4 py-2 rounded-lg bg-accent-50 dark:bg-accent-900/20 text-accent-600 dark:text-accent-400 text-sm font-medium hover:bg-accent-100 transition-colors">
+                            申请权限
+                        </button>
+                    </div>
+                    <p id="notify-status" class="text-xs mt-2 text-slate-400"></p>
+                </div>
+
+                <!-- 提示音 -->
+                <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <label class="text-sm font-medium">提示音效</label>
+                        <button id="toggle-sound" class="relative w-12 h-7 rounded-full bg-primary-500 transition-colors">
+                            <span class="absolute left-6 top-1 w-5 h-5 bg-white rounded-full shadow transition-transform"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 主题 -->
+                <div class="p-5">
+                    <div class="flex items-center justify-between">
+                        <label class="text-sm font-medium">深色模式</label>
+                        <button id="toggle-dark" class="relative w-12 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors">
+                            <span class="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow transition-transform dark:translate-x-5"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 数据管理 -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
+                <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+                    <h2 class="font-bold text-lg">数据管理</h2>
+                </div>
+                <div class="p-5">
+                    <button id="btn-reset" class="w-full py-3 rounded-xl border-2 border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 font-medium hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        重置所有数据
+                    </button>
+                    <p class="text-xs text-slate-400 text-center mt-2">这将清空所有运动记录和设置，不可恢复</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 全屏运动提醒弹窗 -->
+    <div id="reminder-overlay" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm transition-opacity opacity-0" id="reminder-backdrop"></div>
+        <div class="relative h-full flex items-center justify-center p-4">
+            <div id="reminder-card" class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden transform scale-95 opacity-0 transition-all duration-500">
+                <!-- 头部 -->
+                <div class="bg-gradient-to-br from-warn-400 to-rose-500 p-6 text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-white/20 rounded-full -mr-6 -mt-6"></div>
+                    <div class="relative flex items-center gap-3">
+                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur">
+                            <i data-lucide="alarm-clock" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold">该运动啦！</h2>
+                            <p class="text-white/90 text-sm">久坐伤身，起来动一动</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 内容 -->
+                <div class="p-6">
+                    <div class="text-center mb-5">
+                        <div id="exercise-icon" class="w-20 h-20 mx-auto bg-primary-50 dark:bg-primary-900/30 rounded-2xl flex items-center justify-center text-primary-500 mb-3">
+                            <!-- 动态图标 -->
+                        </div>
+                        <h3 id="exercise-name" class="text-lg font-bold mb-1">--</h3>
+                        <p id="exercise-desc" class="text-sm text-slate-500 dark:text-slate-400">--</p>
+                    </div>
+
+                    <!-- 倒计时圆环 -->
+                    <div class="flex justify-center mb-6">
+                        <div class="relative w-32 h-32">
+                            <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="6" class="text-slate-100 dark:text-slate-700"></circle>
+                                <circle id="countdown-circle" cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="0" class="text-primary-500 transition-all duration-1000 linear"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span id="countdown-text" class="text-3xl font-bold text-slate-800 dark:text-slate-100">30</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 动作步骤 -->
+                    <div id="exercise-steps" class="space-y-2 mb-6 max-h-32 overflow-y-auto text-sm text-slate-600 dark:text-slate-300">
+                        <!-- 动态生成 -->
+                    </div>
+
+                    <!-- 按钮 -->
+                    <div class="flex gap-3">
+                        <button id="btn-skip" class="flex-1 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                            跳过
+                        </button>
+                        <button id="btn-done" class="flex-1 py-3 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="check" class="w-5 h-5"></i>
+                            已完成
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成就弹窗 -->
+    <div id="achievement-overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-sm w-full p-8 text-center transform scale-95 opacity-0 transition-all duration-500" id="achievement-card">
+            <div class="w-16 h-16 mx-auto bg-warn-100 dark:bg-warn-900/30 rounded-full flex items-center justify-center text-warn-500 mb-4 text-3xl">
+                🎉
+            </div>
+            <h3 class="text-xl font-bold mb-2" id="achievement-title">太棒了！</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6" id="achievement-desc">今日第 1 次运动打卡成功</p>
+            <button id="btn-achievement-ok" class="w-full py-3 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium shadow-lg shadow-primary-500/30 transition-all">
+                继续加油
+            </button>
+        </div>
+    </div>
+
+    <!-- 底部安全区（移动端） -->
+    <div class="h-6"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

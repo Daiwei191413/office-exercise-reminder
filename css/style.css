@@ -1,0 +1,138 @@
+/* ===== 基础与动画 ===== */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+    20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+@keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confetti {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+}
+
+/* ===== 自定义滚动条 ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+/* ===== 滑块样式 ===== */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: #e2e8f0;
+    outline: none;
+}
+.dark input[type="range"] { background: #334155; }
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #10b981;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #10b981;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* ===== 开关按钮 ===== */
+.toggle-btn { position: relative; }
+.toggle-btn.on { background-color: #10b981 !important; }
+.toggle-btn.on span { transform: translateX(20px) !important; }
+
+/* ===== 运动卡片 ===== */
+.exercise-card {
+    animation: slide-up 0.4s ease-out both;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.exercise-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(0,0,0,0.1);
+}
+
+/* ===== 提醒弹窗动画 ===== */
+#reminder-overlay.show #reminder-backdrop { opacity: 1; }
+#reminder-overlay.show #reminder-card {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ===== 成就弹窗动画 ===== */
+#achievement-overlay.show #achievement-card {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ===== 选中状态 ===== */
+.interval-btn.active {
+    border-color: #10b981 !important;
+    background-color: #ecfdf5 !important;
+    color: #059669 !important;
+}
+.dark .interval-btn.active {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    color: #34d399 !important;
+}
+
+/* ===== 日志项 ===== */
+.log-item {
+    animation: slide-up 0.3s ease-out;
+}
+
+/* ===== 呼吸灯效果 ===== */
+.breathing {
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ===== 倒计时数字 ===== */
+#countdown-text {
+    font-variant-numeric: tabular-nums;
+}
+
+/* ===== 响应式微调 ===== */
+@media (max-width: 640px) {
+    .nav-tab { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
+}
+
+/* ===== 隐藏视图 ===== */
+.view-section.hidden { display: none !important; }
+
+/* ===== 通知徽章 ===== */
+.notify-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #f43f5e;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+.dark .notify-badge { border-color: #0f172a; }
