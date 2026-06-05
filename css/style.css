@@ -190,6 +190,51 @@ input[type="range"]::-moz-range-thumb {
     stroke-linecap: round;
     fill: none;
 }
+.figure-svg .figure-eyeliner {
+    stroke: #2d2d2d;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    fill: none;
+}
+.figure-svg .figure-lips {
+    stroke: #e11d48;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    fill: none;
+}
+.figure-svg .figure-earring {
+    fill: #fbbf24;
+}
+.figure-svg .figure-dress {
+    fill: #1e3a5f;
+}
+.figure-svg .figure-dress-skirt {
+    fill: #1e3a5f;
+}
+.figure-svg .figure-dress-highlight {
+    fill: #3b5998;
+    opacity: 0.25;
+}
+.figure-svg .figure-dress-collar {
+    stroke: #152a45;
+    stroke-width: 1.2;
+    fill: none;
+}
+.figure-svg .figure-dress-belt {
+    fill: #0f172a;
+}
+.figure-svg .figure-arm {
+    stroke: #fcd34d;
+    stroke-width: 5;
+    stroke-linecap: round;
+    fill: none;
+}
+.figure-svg .figure-leg {
+    stroke: #fcd34d;
+    stroke-width: 5.5;
+    stroke-linecap: round;
+    fill: none;
+}
 .figure-svg .figure-hairpin {
     fill: #f43f5e;
 }
@@ -308,14 +353,24 @@ input[type="range"]::-moz-range-thumb {
 .dark .figure-svg .figure-mouth { stroke: #e57373; }
 .dark .figure-svg .figure-nose { fill: #d4a582; }
 .dark .figure-svg .figure-eyelash { stroke: #e2e8f0; }
+.dark .figure-svg .figure-eyeliner { stroke: #e2e8f0; }
+.dark .figure-svg .figure-lips { stroke: #fb7185; }
+.dark .figure-svg .figure-earring { fill: #fbbf24; }
 .dark .figure-svg .figure-hairpin { fill: #fb7185; }
 .dark .figure-svg .figure-neck { fill: #f5cba7; }
+.dark .figure-svg .figure-arm { stroke: #fde68a; }
 .dark .figure-svg .figure-arm-lower { stroke: #f5cba7; }
+.dark .figure-svg .figure-leg { stroke: #fde68a; }
 .dark .figure-svg .figure-hand { fill: #f5cba7; }
 .dark .figure-svg .figure-finger { stroke: #f5cba7; }
 .dark .figure-svg .figure-torso { fill: #34d399; }
 .dark .figure-svg .figure-torso-highlight { fill: #6ee7b7; }
 .dark .figure-svg .figure-collar { fill: #059669; }
+.dark .figure-svg .figure-dress { fill: #2563eb; }
+.dark .figure-svg .figure-dress-skirt { fill: #2563eb; }
+.dark .figure-svg .figure-dress-highlight { fill: #60a5fa; opacity: 0.25; }
+.dark .figure-svg .figure-dress-collar { stroke: #1d4ed8; }
+.dark .figure-svg .figure-dress-belt { fill: #1e3a8a; }
 .dark .figure-svg .figure-chair-seat { fill: #64748b; }
 .dark .figure-svg .figure-chair-back { fill: #475569; }
 .dark .figure-svg .figure-chair-leg { fill: #64748b; }
@@ -327,13 +382,15 @@ input[type="range"]::-moz-range-thumb {
 .figure-svg-small .figure-torso { fill: #10b981; }
 .figure-svg-small .figure-pants { stroke: #3b82f6; }
 .dark .figure-svg-small .figure-torso { fill: #34d399; }
-.dark .figure-svg-small .figure-pants { stroke: #60a5fa; }
+.dark .figure-svg-small .figure-leg { stroke: #60a5fa; }
+.dark .figure-svg-small .figure-dress { fill: #2563eb; }
 
 /* 弹窗里的大 SVG 配色 */
 .figure-svg-large .figure-torso { fill: #10b981; }
-.figure-svg-large .figure-pants { stroke: #3b82f6; }
+.figure-svg-large .figure-leg { stroke: #3b82f6; }
 .dark .figure-svg-large .figure-torso { fill: #34d399; }
-.dark .figure-svg-large .figure-pants { stroke: #60a5fa; }
+.dark .figure-svg-large .figure-leg { stroke: #60a5fa; }
+.dark .figure-svg-large .figure-dress { fill: #2563eb; }
 
 /* ===== 运动库卡片 SVG 容器 ===== */
 .card-figure-wrap {
