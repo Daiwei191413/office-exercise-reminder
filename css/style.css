@@ -184,6 +184,15 @@ input[type="range"]::-moz-range-thumb {
 .figure-svg .figure-nose {
     fill: #e8b89d;
 }
+.figure-svg .figure-eyelash {
+    stroke: #2d2d2d;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    fill: none;
+}
+.figure-svg .figure-hairpin {
+    fill: #f43f5e;
+}
 
 /* ===== 身体系统（T恤） ===== */
 .figure-svg .figure-torso {
@@ -298,6 +307,8 @@ input[type="range"]::-moz-range-thumb {
 .dark .figure-svg .figure-eyebrow { stroke: #e2e8f0; }
 .dark .figure-svg .figure-mouth { stroke: #e57373; }
 .dark .figure-svg .figure-nose { fill: #d4a582; }
+.dark .figure-svg .figure-eyelash { stroke: #e2e8f0; }
+.dark .figure-svg .figure-hairpin { fill: #fb7185; }
 .dark .figure-svg .figure-neck { fill: #f5cba7; }
 .dark .figure-svg .figure-arm-lower { stroke: #f5cba7; }
 .dark .figure-svg .figure-hand { fill: #f5cba7; }
