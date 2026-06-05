@@ -448,24 +448,70 @@ const App = {
         lucide.createIcons();
     },
 
-    // SVG 人物生成器
+    // SVG 精致卡通人物生成器
     getFigureSVG(animClass, size = 'small') {
         const cls = size === 'large' ? 'figure-svg-large' : 'figure-svg-small';
+        const vb = size === 'large' ? '0 0 100 180' : '0 0 100 180';
         return `
-            <svg class="figure-svg ${cls} ${animClass}" viewBox="0 0 100 160">
+            <svg class="figure-svg ${cls} ${animClass}" viewBox="${vb}">
+                <!-- 椅子 -->
                 <g class="figure-chair">
-                    <rect x="18" y="108" width="64" height="6" rx="2"/>
-                    <rect x="22" y="114" width="5" height="28" rx="1"/>
-                    <rect x="73" y="114" width="5" height="28" rx="1"/>
+                    <rect class="figure-chair-back" x="14" y="55" width="6" height="60" rx="2"/>
+                    <rect class="figure-chair-seat" x="14" y="112" width="72" height="8" rx="3"/>
+                    <rect class="figure-chair-leg" x="18" y="120" width="5" height="32" rx="1"/>
+                    <rect class="figure-chair-leg" x="77" y="120" width="5" height="32" rx="1"/>
                 </g>
-                <line class="figure-leg figure-leg-left" x1="42" y1="105" x2="30" y2="148"/>
-                <line class="figure-leg figure-leg-right" x1="58" y1="105" x2="70" y2="148"/>
-                <line class="figure-torso" x1="50" y1="55" x2="50" y2="105"/>
-                <line class="figure-arm figure-arm-left" x1="50" y1="62" x2="22" y2="88"/>
-                <line class="figure-arm figure-arm-right" x1="50" y1="62" x2="78" y2="88"/>
-                <circle class="figure-head" cx="50" cy="35" r="16"/>
-                <circle class="figure-eye" cx="44" cy="32" r="2.5"/>
-                <circle class="figure-eye" cx="56" cy="32" r="2.5"/>
+                <!-- 左腿 -->
+                <g class="figure-leg-left-group">
+                    <line class="figure-leg" x1="43" y1="95" x2="35" y2="148"/>
+                    <ellipse class="figure-foot" cx="33" cy="150" rx="7" ry="4"/>
+                </g>
+                <!-- 右腿 -->
+                <g class="figure-leg-right-group">
+                    <line class="figure-leg" x1="57" y1="95" x2="65" y2="148"/>
+                    <ellipse class="figure-foot" cx="67" cy="150" rx="7" ry="4"/>
+                </g>
+                <!-- 上半身组 -->
+                <g class="figure-upper-body">
+                    <!-- 身体 -->
+                    <rect class="figure-body" x="35" y="50" width="30" height="42" rx="12"/>
+                    <!-- 脖子 -->
+                    <rect class="figure-neck" x="45" y="42" width="10" height="12" rx="3"/>
+                    <!-- 头部组 -->
+                    <g class="figure-head-group">
+                        <!-- 头发 -->
+                        <path class="figure-hair" d="M36 24 Q50 8 64 24 Q66 30 64 36 Q62 20 50 18 Q38 20 36 36 Q34 30 36 24Z"/>
+                        <!-- 脸部 -->
+                        <ellipse class="figure-head" cx="50" cy="30" rx="15" ry="16"/>
+                        <!-- 眉毛 -->
+                        <line class="figure-eyebrow" x1="42" y1="24" x2="47" y2="25"/>
+                        <line class="figure-eyebrow" x1="53" y1="25" x2="58" y2="24"/>
+                        <!-- 眼睛组 -->
+                        <g class="figure-eye-group">
+                            <ellipse class="figure-eye-white" cx="44.5" cy="29" rx="3.5" ry="4"/>
+                            <ellipse class="figure-eye-white" cx="55.5" cy="29" rx="3.5" ry="4"/>
+                            <circle class="figure-eye-pupil" cx="44.5" cy="29" r="1.8"/>
+                            <circle class="figure-eye-pupil" cx="55.5" cy="29" r="1.8"/>
+                        </g>
+                        <!-- 腮红 -->
+                        <ellipse class="figure-blush" cx="40" cy="34" rx="3" ry="2"/>
+                        <ellipse class="figure-blush" cx="60" cy="34" rx="3" ry="2"/>
+                        <!-- 嘴巴 -->
+                        <path class="figure-mouth" d="M46 38 Q50 41 54 38"/>
+                    </g>
+                    <!-- 左臂 -->
+                    <g class="figure-arm-left-group">
+                        <line class="figure-sleeve" x1="38" y1="56" x2="32" y2="64"/>
+                        <line class="figure-arm" x1="32" y1="64" x2="22" y2="82"/>
+                        <circle class="figure-hand" cx="20" cy="84" r="4.5"/>
+                    </g>
+                    <!-- 右臂 -->
+                    <g class="figure-arm-right-group">
+                        <line class="figure-sleeve" x1="62" y1="56" x2="68" y2="64"/>
+                        <line class="figure-arm" x1="68" y1="64" x2="78" y2="82"/>
+                        <circle class="figure-hand" cx="80" cy="84" r="4.5"/>
+                    </g>
+                </g>
             </svg>
         `;
     },
