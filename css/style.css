@@ -138,7 +138,7 @@ input[type="range"]::-moz-range-thumb {
 .dark .notify-badge { border-color: #0f172a; }
 
 /* ============================================================
-   精致2D卡通人物 SVG 系统
+   精致2D卡通人物 SVG 系统 V2 — 圆润职场角色
    ============================================================ */
 
 /* 基础 SVG 人物样式 */
@@ -146,262 +146,374 @@ input[type="range"]::-moz-range-thumb {
     overflow: visible;
 }
 
-/* 头部 */
-.figure-svg .figure-head {
-    fill: #fcd34d;
+/* ===== 头部系统 ===== */
+.figure-svg .figure-head-shape {
+    fill: #ffdfc4;
 }
-.figure-svg .figure-hair {
-    fill: #1e293b;
+.figure-svg .figure-hair-back {
+    fill: #2d2d2d;
+}
+.figure-svg .figure-hair-front {
+    fill: #2d2d2d;
+}
+.figure-svg .figure-ear {
+    fill: #ffdfc4;
 }
 .figure-svg .figure-eye-white {
     fill: #ffffff;
 }
 .figure-svg .figure-eye-pupil {
-    fill: #1e293b;
+    fill: #1a1a2e;
 }
 .figure-svg .figure-eyebrow {
-    stroke: #1e293b;
-    stroke-width: 1.5;
+    stroke: #2d2d2d;
+    stroke-width: 1.8;
     stroke-linecap: round;
     fill: none;
 }
 .figure-svg .figure-mouth {
-    stroke: #1e293b;
-    stroke-width: 1.5;
+    stroke: #c0392b;
+    stroke-width: 1.8;
     stroke-linecap: round;
     fill: none;
 }
 .figure-svg .figure-blush {
-    fill: #fca5a5;
-    opacity: 0.4;
+    fill: #ff9999;
+    opacity: 0.35;
+}
+.figure-svg .figure-nose {
+    fill: #e8b89d;
 }
 
-/* 身体（衣服） */
-.figure-svg .figure-body {
+/* ===== 身体系统（T恤） ===== */
+.figure-svg .figure-torso {
     fill: #10b981;
 }
+.figure-svg .figure-torso-highlight {
+    fill: #34d399;
+    opacity: 0.3;
+}
+.figure-svg .figure-collar {
+    fill: #059669;
+}
 .figure-svg .figure-neck {
-    fill: #fcd34d;
+    fill: #ffdfc4;
 }
 
-/* 手臂 */
-.figure-svg .figure-arm {
-    stroke: #fcd34d;
-    stroke-width: 5;
+/* ===== 手臂系统 ===== */
+.figure-svg .figure-arm-upper {
+    stroke: #10b981;
+    stroke-width: 9;
     stroke-linecap: round;
     fill: none;
 }
-.figure-svg .figure-sleeve {
-    stroke: #059669;
-    stroke-width: 6;
+.figure-svg .figure-arm-lower {
+    stroke: #ffdfc4;
+    stroke-width: 7;
     stroke-linecap: round;
     fill: none;
 }
 .figure-svg .figure-hand {
-    fill: #fcd34d;
+    fill: #ffdfc4;
 }
-
-/* 腿和脚 */
-.figure-svg .figure-leg {
-    stroke: #3b82f6;
-    stroke-width: 6;
+.figure-svg .figure-finger {
+    stroke: #ffdfc4;
+    stroke-width: 2.5;
     stroke-linecap: round;
     fill: none;
 }
-.figure-svg .figure-foot {
+
+/* ===== 腿部系统（裤子） ===== */
+.figure-svg .figure-pants {
+    stroke: #3b82f6;
+    stroke-width: 10;
+    stroke-linecap: round;
+    fill: none;
+}
+.figure-svg .figure-shoe {
     fill: #475569;
 }
+.figure-svg .figure-shoe-detail {
+    fill: #64748b;
+}
 
-/* 椅子 */
+/* ===== 椅子系统 ===== */
 .figure-svg .figure-chair {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 .figure-svg .figure-chair-seat {
     fill: #94a3b8;
-    rx: 3;
+    rx: 4;
 }
 .figure-svg .figure-chair-back {
     fill: #64748b;
-    rx: 2;
+    rx: 3;
 }
 .figure-svg .figure-chair-leg {
     fill: #94a3b8;
-    rx: 1;
+    rx: 1.5;
+}
+.figure-svg .figure-chair-armrest {
+    fill: #64748b;
+    rx: 2;
 }
 
-/* 深色模式适配 */
-.dark .figure-svg .figure-head { fill: #fde68a; }
-.dark .figure-svg .figure-hair { fill: #e2e8f0; }
+/* ===== 场景元素 ===== */
+.figure-svg .figure-desk {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.figure-svg .figure-desk-top {
+    fill: #8b6f47;
+    rx: 2;
+}
+.figure-svg .figure-desk-leg {
+    fill: #6b5637;
+    rx: 1;
+}
+.figure-svg .figure-laptop {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.figure-svg .figure-laptop-base {
+    fill: #94a3b8;
+    rx: 1;
+}
+.figure-svg .figure-laptop-screen {
+    fill: #1e293b;
+    rx: 1;
+}
+.figure-svg .figure-laptop-glow {
+    fill: #60a5fa;
+    opacity: 0.5;
+}
+
+/* ===== 深色模式适配 ===== */
+.dark .figure-svg .figure-head-shape { fill: #f5cba7; }
+.dark .figure-svg .figure-ear { fill: #f5cba7; }
+.dark .figure-svg .figure-hair-back { fill: #e2e8f0; }
+.dark .figure-svg .figure-hair-front { fill: #e2e8f0; }
 .dark .figure-svg .figure-eye-pupil { fill: #e2e8f0; }
 .dark .figure-svg .figure-eyebrow { stroke: #e2e8f0; }
-.dark .figure-svg .figure-mouth { stroke: #e2e8f0; }
-.dark .figure-svg .figure-neck { fill: #fde68a; }
-.dark .figure-svg .figure-arm { stroke: #fde68a; }
-.dark .figure-svg .figure-hand { fill: #fde68a; }
+.dark .figure-svg .figure-mouth { stroke: #e57373; }
+.dark .figure-svg .figure-nose { fill: #d4a582; }
+.dark .figure-svg .figure-neck { fill: #f5cba7; }
+.dark .figure-svg .figure-arm-lower { stroke: #f5cba7; }
+.dark .figure-svg .figure-hand { fill: #f5cba7; }
+.dark .figure-svg .figure-finger { stroke: #f5cba7; }
+.dark .figure-svg .figure-torso { fill: #34d399; }
+.dark .figure-svg .figure-torso-highlight { fill: #6ee7b7; }
+.dark .figure-svg .figure-collar { fill: #059669; }
 .dark .figure-svg .figure-chair-seat { fill: #64748b; }
 .dark .figure-svg .figure-chair-back { fill: #475569; }
 .dark .figure-svg .figure-chair-leg { fill: #64748b; }
+.dark .figure-svg .figure-chair-armrest { fill: #475569; }
+.dark .figure-svg .figure-desk-top { fill: #6b5637; }
+.dark .figure-svg .figure-desk-leg { fill: #4a3b26; }
 
 /* 卡片里的小 SVG 配色 */
-.figure-svg-small .figure-body { fill: #10b981; }
-.figure-svg-small .figure-leg { stroke: #3b82f6; }
-.dark .figure-svg-small .figure-body { fill: #34d399; }
-.dark .figure-svg-small .figure-leg { stroke: #60a5fa; }
+.figure-svg-small .figure-torso { fill: #10b981; }
+.figure-svg-small .figure-pants { stroke: #3b82f6; }
+.dark .figure-svg-small .figure-torso { fill: #34d399; }
+.dark .figure-svg-small .figure-pants { stroke: #60a5fa; }
 
 /* 弹窗里的大 SVG 配色 */
-.figure-svg-large .figure-body { fill: #10b981; }
-.figure-svg-large .figure-leg { stroke: #3b82f6; }
-.dark .figure-svg-large .figure-body { fill: #34d399; }
-.dark .figure-svg-large .figure-leg { stroke: #60a5fa; }
+.figure-svg-large .figure-torso { fill: #10b981; }
+.figure-svg-large .figure-pants { stroke: #3b82f6; }
+.dark .figure-svg-large .figure-torso { fill: #34d399; }
+.dark .figure-svg-large .figure-pants { stroke: #60a5fa; }
+
+/* ===== 运动库卡片 SVG 容器 ===== */
+.card-figure-wrap {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    border-radius: 16px;
+    overflow: hidden;
+}
+.dark .card-figure-wrap {
+    background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(16,185,129,0.08) 100%);
+}
+
+/* ============================================================
+   动作动画系统 V2
+   ============================================================ */
 
 /* ===== 动作 1: 颈部左右转动 ===== */
-@keyframes anim-neck-rotate {
+@keyframes anim-neck-rotate-v2 {
+    0%, 100% { transform: rotate(0deg) translateX(0); }
+    25% { transform: rotate(25deg) translateX(3px); }
+    50% { transform: rotate(0deg) translateX(0); }
+    75% { transform: rotate(-25deg) translateX(-3px); }
+}
+@keyframes anim-neck-torso-follow {
     0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(28deg); }
+    25% { transform: rotate(5deg); }
     50% { transform: rotate(0deg); }
-    75% { transform: rotate(-28deg); }
+    75% { transform: rotate(-5deg); }
 }
 .anim-neck-rotate .figure-head-group {
-    animation: anim-neck-rotate 3s ease-in-out infinite;
-    transform-origin: 50px 44px;
+    animation: anim-neck-rotate-v2 3s ease-in-out infinite;
+    transform-origin: 50px 52px;
+}
+.anim-neck-rotate .figure-upper-body {
+    animation: anim-neck-torso-follow 3s ease-in-out infinite;
+    transform-origin: 50px 80px;
 }
 
 /* ===== 动作 2: 肩膀环绕 ===== */
-@keyframes anim-shoulder-left {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-35deg) translateY(-4px); }
-    50% { transform: rotate(0deg); }
-    75% { transform: rotate(25deg) translateY(-3px); }
+@keyframes anim-shoulder-left-v2 {
+    0%, 100% { transform: rotate(0deg) translate(0, 0); }
+    25% { transform: rotate(-45deg) translate(-2px, -6px); }
+    50% { transform: rotate(0deg) translate(0, 0); }
+    75% { transform: rotate(30deg) translate(2px, -3px); }
 }
-@keyframes anim-shoulder-right {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(35deg) translateY(-4px); }
-    50% { transform: rotate(0deg); }
-    75% { transform: rotate(-25deg) translateY(-3px); }
+@keyframes anim-shoulder-right-v2 {
+    0%, 100% { transform: rotate(0deg) translate(0, 0); }
+    25% { transform: rotate(45deg) translate(2px, -6px); }
+    50% { transform: rotate(0deg) translate(0, 0); }
+    75% { transform: rotate(-30deg) translate(-2px, -3px); }
 }
 .anim-shoulder-roll .figure-arm-left-group {
-    animation: anim-shoulder-left 3s ease-in-out infinite;
-    transform-origin: 50px 58px;
+    animation: anim-shoulder-left-v2 3s ease-in-out infinite;
+    transform-origin: 38px 68px;
 }
 .anim-shoulder-roll .figure-arm-right-group {
-    animation: anim-shoulder-right 3s ease-in-out infinite;
-    transform-origin: 50px 58px;
+    animation: anim-shoulder-right-v2 3s ease-in-out infinite;
+    transform-origin: 62px 68px;
 }
 
 /* ===== 动作 3: 眼部放松 ===== */
-@keyframes anim-eye-move-x {
+@keyframes anim-eye-move-v2 {
     0%, 100% { transform: translate(0, 0); }
-    20% { transform: translate(3px, 0); }
-    40% { transform: translate(-3px, 0); }
-    60% { transform: translate(0, -1.5px); }
-    80% { transform: translate(0, 1.5px); }
+    15% { transform: translate(4px, 0); }
+    30% { transform: translate(-4px, 0); }
+    45% { transform: translate(0, -2px); }
+    60% { transform: translate(0, 2px); }
+    75% { transform: translate(3px, -1px); }
+    90% { transform: translate(-3px, 1px); }
 }
-@keyframes anim-eye-blink-scale {
-    0%, 90%, 100% { transform: scaleY(1); }
-    95% { transform: scaleY(0.15); }
+@keyframes anim-eye-blink-v2 {
+    0%, 85%, 100% { transform: scaleY(1); }
+    90%, 95% { transform: scaleY(0.1); }
+}
+@keyframes anim-eye-head-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(1px); }
 }
 .anim-eye-rest .figure-eye-group {
-    animation: anim-eye-move-x 4s ease-in-out infinite;
+    animation: anim-eye-move-v2 5s ease-in-out infinite;
 }
 .anim-eye-rest .figure-head-group {
-    animation: anim-eye-blink-scale 3s ease-in-out infinite;
-    transform-origin: 50px 40px;
+    animation: anim-eye-blink-v2 3s ease-in-out infinite, anim-eye-head-bob 2s ease-in-out infinite;
+    transform-origin: 50px 50px;
 }
 
 /* ===== 动作 4: 手腕拉伸 ===== */
-@keyframes anim-wrist-left {
+@keyframes anim-wrist-left-v2 {
     0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(-40deg); }
+    50% { transform: rotate(-55deg); }
 }
-@keyframes anim-wrist-right {
+@keyframes anim-wrist-right-v2 {
     0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(40deg); }
+    50% { transform: rotate(55deg); }
 }
 .anim-wrist-stretch .figure-arm-left-group {
-    animation: anim-wrist-left 2s ease-in-out infinite;
-    transform-origin: 50px 58px;
+    animation: anim-wrist-left-v2 2.5s ease-in-out infinite;
+    transform-origin: 38px 68px;
 }
 .anim-wrist-stretch .figure-arm-right-group {
-    animation: anim-wrist-right 2s ease-in-out infinite;
-    transform-origin: 50px 58px;
+    animation: anim-wrist-right-v2 2.5s ease-in-out infinite;
+    transform-origin: 62px 68px;
 }
 
 /* ===== 动作 5: 坐姿转腰 ===== */
-@keyframes anim-waist-twist {
+@keyframes anim-waist-twist-v2 {
     0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(18deg); }
-    75% { transform: rotate(-18deg); }
+    25% { transform: rotate(20deg); }
+    75% { transform: rotate(-20deg); }
+}
+@keyframes anim-waist-arm-follow {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    75% { transform: rotate(-15deg); }
 }
 .anim-waist-twist .figure-upper-body {
-    animation: anim-waist-twist 3s ease-in-out infinite;
-    transform-origin: 50px 75px;
+    animation: anim-waist-twist-v2 3s ease-in-out infinite;
+    transform-origin: 50px 88px;
 }
 .anim-waist-twist .figure-chair {
     opacity: 1;
 }
 
 /* ===== 动作 6: 站立全身拉伸 ===== */
-@keyframes anim-stand-stretch-body {
+@keyframes anim-stand-body-v2 {
     0%, 100% { transform: translateY(0) scaleY(1); }
-    50% { transform: translateY(-10px) scaleY(1.06); }
+    50% { transform: translateY(-12px) scaleY(1.05); }
 }
-@keyframes anim-arm-stretch-up-left {
+@keyframes anim-arm-stretch-up-left-v2 {
     0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(-145deg); }
+    50% { transform: rotate(-155deg) translateX(-5px); }
 }
-@keyframes anim-arm-stretch-up-right {
+@keyframes anim-arm-stretch-up-right-v2 {
     0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(145deg); }
+    50% { transform: rotate(155deg) translateX(5px); }
 }
 .anim-stand-stretch .figure-upper-body {
-    animation: anim-stand-stretch-body 2s ease-in-out infinite;
+    animation: anim-stand-body-v2 2.5s ease-in-out infinite;
     transform-origin: 50px 100px;
 }
 .anim-stand-stretch .figure-arm-left-group {
-    animation: anim-arm-stretch-up-left 2s ease-in-out infinite;
-    transform-origin: 50px 58px;
+    animation: anim-arm-stretch-up-left-v2 2.5s ease-in-out infinite;
+    transform-origin: 38px 68px;
 }
 .anim-stand-stretch .figure-arm-right-group {
-    animation: anim-arm-stretch-up-right 2s ease-in-out infinite;
-    transform-origin: 50px 58px;
+    animation: anim-arm-stretch-up-right-v2 2.5s ease-in-out infinite;
+    transform-origin: 62px 68px;
 }
 
 /* ===== 动作 7: 深呼吸 ===== */
-@keyframes anim-deep-breath-body {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.12) translateY(-3px); }
+@keyframes anim-deep-breath-v2 {
+    0%, 100% { transform: scale(1) translateY(0); }
+    40% { transform: scale(1.15) translateY(-5px); }
+    60% { transform: scale(1.15) translateY(-5px); }
+}
+@keyframes anim-deep-breath-arm {
+    0%, 100% { transform: rotate(0deg); }
+    40% { transform: rotate(-20deg); }
+    60% { transform: rotate(-20deg); }
 }
 .anim-deep-breath .figure-upper-body {
-    animation: anim-deep-breath-body 4s ease-in-out infinite;
-    transform-origin: 50px 80px;
+    animation: anim-deep-breath-v2 5s ease-in-out infinite;
+    transform-origin: 50px 85px;
+}
+.anim-deep-breath .figure-arm-left-group {
+    animation: anim-deep-breath-arm 5s ease-in-out infinite;
+    transform-origin: 38px 68px;
+}
+.anim-deep-breath .figure-arm-right-group {
+    animation: anim-deep-breath-arm 5s ease-in-out infinite;
+    transform-origin: 62px 68px;
 }
 
 /* ===== 动作 8: 腿部伸展 ===== */
-@keyframes anim-leg-lift {
+@keyframes anim-leg-lift-v2 {
     0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(-40deg); }
+    50% { transform: rotate(-50deg) translateY(-3px); }
+}
+@keyframes anim-leg-foot-follow {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(20deg); }
 }
 .anim-leg-stretch .figure-leg-left-group {
-    animation: anim-leg-lift 2s ease-in-out infinite;
-    transform-origin: 44px 95px;
+    animation: anim-leg-lift-v2 2.5s ease-in-out infinite;
+    transform-origin: 44px 100px;
 }
 .anim-leg-stretch .figure-chair {
     opacity: 1;
-}
-
-/* ===== 运动库卡片 SVG 容器 ===== */
-.card-figure-wrap {
-    width: 72px;
-    height: 72px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ecfdf5;
-    border-radius: 14px;
-    overflow: hidden;
-}
-.dark .card-figure-wrap {
-    background: rgba(16, 185, 129, 0.15);
 }
