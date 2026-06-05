@@ -490,7 +490,7 @@ const App = {
     // SVG 回退
     getFallbackSVG(animClass, size = 'small') {
         const cls = size === 'large' ? 'figure-svg-large' : 'figure-svg-small';
-        const vb = '0 -20 100 180';
+        const vb = '0 -40 100 200';
         return `
             <svg class="figure-svg ${cls} ${animClass}" viewBox="${vb}" preserveAspectRatio="xMidYMid meet">
                 <!-- 椅子（坐姿时显示） -->
