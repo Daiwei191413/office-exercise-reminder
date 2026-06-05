@@ -415,11 +415,11 @@ input[type="range"]::-moz-range-thumb {
 }
 .anim-neck-rotate .figure-head-group {
     animation: anim-neck-rotate-v2 3s ease-in-out infinite;
-    transform-origin: 50px 52px;
+    transform-origin: 50px 36px;
 }
 .anim-neck-rotate .figure-upper-body {
     animation: anim-neck-torso-follow 3s ease-in-out infinite;
-    transform-origin: 50px 80px;
+    transform-origin: 50px 65px;
 }
 
 /* ===== 动作 2: 肩膀环绕 ===== */
@@ -437,11 +437,11 @@ input[type="range"]::-moz-range-thumb {
 }
 .anim-shoulder-roll .figure-arm-left-group {
     animation: anim-shoulder-left-v2 3s ease-in-out infinite;
-    transform-origin: 38px 68px;
+    transform-origin: 34px 50px;
 }
 .anim-shoulder-roll .figure-arm-right-group {
     animation: anim-shoulder-right-v2 3s ease-in-out infinite;
-    transform-origin: 62px 68px;
+    transform-origin: 66px 50px;
 }
 
 /* ===== 动作 3: 眼部放松 ===== */
@@ -467,7 +467,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .anim-eye-rest .figure-head-group {
     animation: anim-eye-blink-v2 3s ease-in-out infinite, anim-eye-head-bob 2s ease-in-out infinite;
-    transform-origin: 50px 50px;
+    transform-origin: 50px 32px;
 }
 
 /* ===== 动作 4: 手腕拉伸 ===== */
@@ -481,11 +481,11 @@ input[type="range"]::-moz-range-thumb {
 }
 .anim-wrist-stretch .figure-arm-left-group {
     animation: anim-wrist-left-v2 2.5s ease-in-out infinite;
-    transform-origin: 38px 68px;
+    transform-origin: 34px 50px;
 }
 .anim-wrist-stretch .figure-arm-right-group {
     animation: anim-wrist-right-v2 2.5s ease-in-out infinite;
-    transform-origin: 62px 68px;
+    transform-origin: 66px 50px;
 }
 
 /* ===== 动作 5: 坐姿转腰 ===== */
@@ -522,15 +522,15 @@ input[type="range"]::-moz-range-thumb {
 }
 .anim-stand-stretch .figure-upper-body {
     animation: anim-stand-body-v2 2.5s ease-in-out infinite;
-    transform-origin: 50px 100px;
+    transform-origin: 50px 80px;
 }
 .anim-stand-stretch .figure-arm-left-group {
     animation: anim-arm-stretch-up-left-v2 2.5s ease-in-out infinite;
-    transform-origin: 38px 68px;
+    transform-origin: 34px 50px;
 }
 .anim-stand-stretch .figure-arm-right-group {
     animation: anim-arm-stretch-up-right-v2 2.5s ease-in-out infinite;
-    transform-origin: 62px 68px;
+    transform-origin: 66px 50px;
 }
 
 /* ===== 动作 7: 深呼吸 ===== */
@@ -546,15 +546,15 @@ input[type="range"]::-moz-range-thumb {
 }
 .anim-deep-breath .figure-upper-body {
     animation: anim-deep-breath-v2 5s ease-in-out infinite;
-    transform-origin: 50px 85px;
+    transform-origin: 50px 70px;
 }
 .anim-deep-breath .figure-arm-left-group {
     animation: anim-deep-breath-arm 5s ease-in-out infinite;
-    transform-origin: 38px 68px;
+    transform-origin: 34px 50px;
 }
 .anim-deep-breath .figure-arm-right-group {
     animation: anim-deep-breath-arm 5s ease-in-out infinite;
-    transform-origin: 62px 68px;
+    transform-origin: 66px 50px;
 }
 
 /* ===== 动作 8: 腿部伸展 ===== */
@@ -568,7 +568,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .anim-leg-stretch .figure-leg-left-group {
     animation: anim-leg-lift-v2 2.5s ease-in-out infinite;
-    transform-origin: 44px 100px;
+    transform-origin: 44px 88px;
 }
 .anim-leg-stretch .figure-chair {
     opacity: 1;

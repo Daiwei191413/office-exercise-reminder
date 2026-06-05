@@ -490,89 +490,88 @@ const App = {
     // SVG 回退
     getFallbackSVG(animClass, size = 'small') {
         const cls = size === 'large' ? 'figure-svg-large' : 'figure-svg-small';
-        const s = size === 'large' ? 1.3 : 0.85; // 尺寸缩放
-        const vb = '0 0 120 200';
+        const vb = '0 0 100 160';
         return `
-            <svg class="figure-svg ${cls} ${animClass}" viewBox="${vb}" style="transform: scale(${s}); transform-origin: center center;">
+            <svg class="figure-svg ${cls} ${animClass}" viewBox="${vb}" preserveAspectRatio="xMidYMax meet">
                 <!-- 椅子（坐姿时显示） -->
                 <g class="figure-chair">
-                    <rect class="figure-chair-back" x="10" y="65" width="8" height="65" rx="3"/>
-                    <rect class="figure-chair-seat" x="10" y="128" width="80" height="10" rx="4"/>
-                    <rect class="figure-chair-leg" x="16" y="138" width="6" height="35" rx="2"/>
-                    <rect class="figure-chair-leg" x="78" y="138" width="6" height="35" rx="2"/>
-                    <rect class="figure-chair-armrest" x="6" y="95" width="4" height="28" rx="2"/>
-                    <rect class="figure-chair-armrest" x="90" y="95" width="4" height="28" rx="2"/>
+                    <rect class="figure-chair-back" x="14" y="50" width="7" height="55" rx="3"/>
+                    <rect class="figure-chair-seat" x="14" y="106" width="72" height="9" rx="4"/>
+                    <rect class="figure-chair-leg" x="18" y="115" width="5" height="28" rx="2"/>
+                    <rect class="figure-chair-leg" x="77" y="115" width="5" height="28" rx="2"/>
+                    <rect class="figure-chair-armrest" x="10" y="76" width="3" height="22" rx="1.5"/>
+                    <rect class="figure-chair-armrest" x="87" y="76" width="3" height="22" rx="1.5"/>
                 </g>
                 <!-- 左腿 -->
                 <g class="figure-leg-left-group">
-                    <line class="figure-pants" x1="44" y1="108" x2="36" y2="162"/>
-                    <ellipse class="figure-shoe" cx="33" cy="166" rx="9" ry="5"/>
-                    <rect class="figure-shoe-detail" x="30" y="164" width="6" height="2" rx="1"/>
+                    <line class="figure-pants" x1="44" y1="88" x2="37" y2="138"/>
+                    <ellipse class="figure-shoe" cx="34" cy="142" rx="8" ry="4.5"/>
+                    <rect class="figure-shoe-detail" x="31" y="140" width="6" height="2" rx="1"/>
                 </g>
                 <!-- 右腿 -->
                 <g class="figure-leg-right-group">
-                    <line class="figure-pants" x1="56" y1="108" x2="64" y2="162"/>
-                    <ellipse class="figure-shoe" cx="67" cy="166" rx="9" ry="5"/>
-                    <rect class="figure-shoe-detail" x="64" y="164" width="6" height="2" rx="1"/>
+                    <line class="figure-pants" x1="56" y1="88" x2="63" y2="138"/>
+                    <ellipse class="figure-shoe" cx="66" cy="142" rx="8" ry="4.5"/>
+                    <rect class="figure-shoe-detail" x="63" y="140" width="6" height="2" rx="1"/>
                 </g>
                 <!-- 上半身组 -->
                 <g class="figure-upper-body">
                     <!-- T恤主体 -->
-                    <path class="figure-torso" d="M30 60 Q30 55 35 55 L65 55 Q70 55 70 60 L72 95 Q72 102 65 102 L35 102 Q28 102 28 95 Z"/>
+                    <path class="figure-torso" d="M31 48 Q31 44 36 44 L64 44 Q69 44 69 48 L71 80 Q71 86 64 86 L36 86 Q29 86 29 80 Z"/>
                     <!-- T恤高光 -->
-                    <ellipse class="figure-torso-highlight" cx="40" cy="72" rx="8" ry="14"/>
+                    <ellipse class="figure-torso-highlight" cx="40" cy="60" rx="7" ry="12"/>
                     <!-- 衣领 -->
-                    <path class="figure-collar" d="M42 55 Q50 62 58 55 L56 58 Q50 64 44 58 Z"/>
+                    <path class="figure-collar" d="M43 44 Q50 50 57 44 L55 47 Q50 52 45 47 Z"/>
                     <!-- 脖子 -->
-                    <rect class="figure-neck" x="44" y="46" width="12" height="12" rx="4"/>
+                    <rect class="figure-neck" x="44" y="36" width="12" height="10" rx="3"/>
                     <!-- 头部组 -->
                     <g class="figure-head-group">
                         <!-- 头发后层 -->
-                        <ellipse class="figure-hair-back" cx="50" cy="36" rx="20" ry="18"/>
+                        <ellipse class="figure-hair-back" cx="50" cy="28" rx="16" ry="14"/>
                         <!-- 耳朵 -->
-                        <ellipse class="figure-ear" cx="32" cy="40" rx="4" ry="6"/>
-                        <ellipse class="figure-ear" cx="68" cy="40" rx="4" ry="6"/>
+                        <ellipse class="figure-ear" cx="34" cy="32" rx="3.5" ry="5"/>
+                        <ellipse class="figure-ear" cx="66" cy="32" rx="3.5" ry="5"/>
                         <!-- 脸部 -->
-                        <ellipse class="figure-head-shape" cx="50" cy="40" rx="17" ry="19"/>
+                        <ellipse class="figure-head-shape" cx="50" cy="32" rx="14" ry="15"/>
                         <!-- 头发前层/刘海 -->
-                        <path class="figure-hair-front" d="M34 28 Q38 18 50 20 Q62 18 66 28 Q64 22 50 24 Q36 22 34 28Z"/>
+                        <path class="figure-hair-front" d="M36 22 Q40 14 50 16 Q60 14 64 22 Q62 17 50 19 Q38 17 36 22Z"/>
                         <!-- 眉毛 -->
-                        <line class="figure-eyebrow" x1="42" y1="33" x2="48" y2="34"/>
-                        <line class="figure-eyebrow" x1="52" y1="34" x2="58" y2="33"/>
+                        <line class="figure-eyebrow" x1="43" y1="26" x2="48" y2="27"/>
+                        <line class="figure-eyebrow" x1="52" y1="27" x2="57" y2="26"/>
                         <!-- 眼睛组 -->
                         <g class="figure-eye-group">
-                            <ellipse class="figure-eye-white" cx="45" cy="38" rx="4" ry="5"/>
-                            <ellipse class="figure-eye-white" cx="55" cy="38" rx="4" ry="5"/>
-                            <circle class="figure-eye-pupil" cx="45" cy="38" r="2.2"/>
-                            <circle class="figure-eye-pupil" cx="55" cy="38" r="2.2"/>
-                            <circle cx="46" cy="37" r="1" fill="white" opacity="0.8"/>
-                            <circle cx="56" cy="37" r="1" fill="white" opacity="0.8"/>
+                            <ellipse class="figure-eye-white" cx="45.5" cy="30" rx="3.2" ry="4"/>
+                            <ellipse class="figure-eye-white" cx="54.5" cy="30" rx="3.2" ry="4"/>
+                            <circle class="figure-eye-pupil" cx="45.5" cy="30" r="1.6"/>
+                            <circle class="figure-eye-pupil" cx="54.5" cy="30" r="1.6"/>
+                            <circle cx="46.2" cy="29.2" r="0.9" fill="white" opacity="0.8"/>
+                            <circle cx="55.2" cy="29.2" r="0.9" fill="white" opacity="0.8"/>
                         </g>
                         <!-- 鼻子 -->
-                        <ellipse class="figure-nose" cx="50" cy="44" rx="2" ry="1.5"/>
+                        <ellipse class="figure-nose" cx="50" cy="35" rx="1.6" ry="1.2"/>
                         <!-- 腮红 -->
-                        <ellipse class="figure-blush" cx="40" cy="46" rx="4" ry="2.5"/>
-                        <ellipse class="figure-blush" cx="60" cy="46" rx="4" ry="2.5"/>
+                        <ellipse class="figure-blush" cx="41" cy="37" rx="3" ry="2"/>
+                        <ellipse class="figure-blush" cx="59" cy="37" rx="3" ry="2"/>
                         <!-- 嘴巴 -->
-                        <path class="figure-mouth" d="M45 50 Q50 55 55 50"/>
+                        <path class="figure-mouth" d="M46 41 Q50 44 54 41"/>
                     </g>
                     <!-- 左臂 -->
                     <g class="figure-arm-left-group">
-                        <line class="figure-arm-upper" x1="33" y1="62" x2="25" y2="78"/>
-                        <line class="figure-arm-lower" x1="25" y1="78" x2="18" y2="96"/>
-                        <circle class="figure-hand" cx="16" cy="99" r="5.5"/>
-                        <line class="figure-finger" x1="14" y1="102" x2="12" y2="106"/>
-                        <line class="figure-finger" x1="16" y1="103" x2="16" y2="107"/>
-                        <line class="figure-finger" x1="18" y1="102" x2="20" y2="106"/>
+                        <line class="figure-arm-upper" x1="34" y1="50" x2="27" y2="64"/>
+                        <line class="figure-arm-lower" x1="27" y1="64" x2="20" y2="80"/>
+                        <circle class="figure-hand" cx="18" cy="83" r="4.5"/>
+                        <line class="figure-finger" x1="16" y1="86" x2="14" y2="89"/>
+                        <line class="figure-finger" x1="18" y1="86.5" x2="18" y2="90"/>
+                        <line class="figure-finger" x1="20" y1="86" x2="22" y2="89"/>
                     </g>
                     <!-- 右臂 -->
                     <g class="figure-arm-right-group">
-                        <line class="figure-arm-upper" x1="67" y1="62" x2="75" y2="78"/>
-                        <line class="figure-arm-lower" x1="75" y1="78" x2="82" y2="96"/>
-                        <circle class="figure-hand" cx="84" cy="99" r="5.5"/>
-                        <line class="figure-finger" x1="82" y1="102" x2="80" y2="106"/>
-                        <line class="figure-finger" x1="84" y1="103" x2="84" y2="107"/>
-                        <line class="figure-finger" x1="86" y1="102" x2="88" y2="106"/>
+                        <line class="figure-arm-upper" x1="66" y1="50" x2="73" y2="64"/>
+                        <line class="figure-arm-lower" x1="73" y1="64" x2="80" y2="80"/>
+                        <circle class="figure-hand" cx="82" cy="83" r="4.5"/>
+                        <line class="figure-finger" x1="80" y1="86" x2="78" y2="89"/>
+                        <line class="figure-finger" x1="82" y1="86.5" x2="82" y2="90"/>
+                        <line class="figure-finger" x1="84" y1="86" x2="86" y2="89"/>
                     </g>
                 </g>
             </svg>
