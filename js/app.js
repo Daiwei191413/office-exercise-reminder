@@ -114,14 +114,14 @@ const EXERCISES = [
 // ==================== 动作示范素材配置 ====================
 // 支持 .png / .jpg / .webp / .gif，留空则使用默认 SVG 动画
 const EXERCISE_GIFS = {
-    'neck-rotate':     'assets/exercise-photos/neck-rotate.png',
-    'shoulder-roll':   'assets/exercise-photos/shoulder-roll.png',
-    'eye-rest':        'assets/exercise-photos/eye-rest.png',
-    'wrist-stretch':   'assets/exercise-photos/wrist-stretch.png',
-    'waist-twist':     'assets/exercise-photos/waist-twist.png',
-    'stand-stretch':   'assets/exercise-photos/stand-stretch.png',
-    'deep-breath':     'assets/exercise-photos/deep-breath.png',
-    'leg-stretch':     'assets/exercise-photos/leg-stretch.png'
+    'neck-rotate':     'assets/exercise-photos-v2/neck-rotate.png',
+    'shoulder-roll':   'assets/exercise-photos-v2/shoulder-roll.png',
+    'eye-rest':        'assets/exercise-photos-v2/eye-rest.png',
+    'wrist-stretch':   'assets/exercise-photos-v2/wrist-stretch.png',
+    'waist-twist':     'assets/exercise-photos-v2/waist-twist.png',
+    'stand-stretch':   'assets/exercise-photos-v2/stand-stretch.png',
+    'deep-breath':     'assets/exercise-photos-v2/deep-breath.png',
+    'leg-stretch':     'assets/exercise-photos-v2/leg-stretch.png'
 };
 
 // ==================== 数据存储 ====================
