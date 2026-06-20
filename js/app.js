@@ -111,18 +111,17 @@ const EXERCISES = [
     }
 ];
 
-// ==================== GIF 素材配置 ====================
-// 在这里填入 GIF 图片地址，即可替换 SVG 卡通人物
-// 支持 .gif / .webp / .mp4 等格式，留空则使用默认 SVG 动画
+// ==================== 动作示范素材配置 ====================
+// 支持 .png / .jpg / .webp / .gif，留空则使用默认 SVG 动画
 const EXERCISE_GIFS = {
-    'neck-rotate':     '', // 颈部左右转动
-    'shoulder-roll':   '', // 肩膀环绕运动
-    'eye-rest':        '', // 眼部放松操
-    'wrist-stretch':   '', // 手腕拉伸
-    'waist-twist':     '', // 坐姿转腰
-    'stand-stretch':   '', // 站立全身拉伸
-    'deep-breath':     '', // 深呼吸放松
-    'leg-stretch':     ''  // 腿部伸展
+    'neck-rotate':     'assets/exercise-photos/neck-rotate.png',
+    'shoulder-roll':   'assets/exercise-photos/shoulder-roll.png',
+    'eye-rest':        'assets/exercise-photos/eye-rest.png',
+    'wrist-stretch':   'assets/exercise-photos/wrist-stretch.png',
+    'waist-twist':     'assets/exercise-photos/waist-twist.png',
+    'stand-stretch':   'assets/exercise-photos/stand-stretch.png',
+    'deep-breath':     'assets/exercise-photos/deep-breath.png',
+    'leg-stretch':     'assets/exercise-photos/leg-stretch.png'
 };
 
 // ==================== 数据存储 ====================
