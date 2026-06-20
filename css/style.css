@@ -31,6 +31,13 @@
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 .dark ::-webkit-scrollbar-thumb { background: #475569; }
 
+/* ===== 键盘焦点 ===== */
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.35);
+    outline-offset: 3px;
+}
+
 /* ===== 滑块样式 ===== */
 input[type="range"] {
     -webkit-appearance: none;
@@ -90,6 +97,12 @@ input[type="range"]::-moz-range-thumb {
     transform: scale(1);
 }
 
+/* ===== 确认弹窗动画 ===== */
+#confirm-overlay.show #confirm-card {
+    opacity: 1;
+    transform: scale(1);
+}
+
 /* ===== 选中状态 ===== */
 .interval-btn.active {
     border-color: #10b981 !important;
@@ -119,6 +132,17 @@ input[type="range"]::-moz-range-thumb {
 /* ===== 响应式微调 ===== */
 @media (max-width: 640px) {
     .nav-tab { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* ===== 隐藏视图 ===== */

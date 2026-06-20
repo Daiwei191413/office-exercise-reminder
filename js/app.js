@@ -262,28 +262,19 @@ const App = {
             this.settings = { ...this.settings, ...saved };
         }
         // 应用设置到 UI
-        document.querySelectorAll('.interval-btn').forEach(btn => {
-            btn.classList.toggle('active', parseInt(btn.dataset.interval) === this.settings.interval);
-        });
+        this.updateIntervalButtons();
         document.getElementById('target-slider').value = this.settings.target;
         document.getElementById('target-display').textContent = `${this.settings.target} 次`;
         document.getElementById('target-count').textContent = this.settings.target;
 
-        const dndToggle = document.getElementById('toggle-dnd');
-        if (this.settings.dndEnabled) {
-            dndToggle.classList.add('on');
-            document.getElementById('dnd-time').classList.remove('opacity-50', 'pointer-events-none');
-        }
+        this.setToggleState('toggle-dnd', this.settings.dndEnabled);
+        document.getElementById('dnd-time').classList.toggle('opacity-50', !this.settings.dndEnabled);
+        document.getElementById('dnd-time').classList.toggle('pointer-events-none', !this.settings.dndEnabled);
         document.getElementById('dnd-start').value = this.settings.dndStart;
         document.getElementById('dnd-end').value = this.settings.dndEnd;
 
-        const soundToggle = document.getElementById('toggle-sound');
-        if (!this.settings.sound) {
-            soundToggle.classList.remove('bg-primary-500');
-            soundToggle.classList.add('bg-slate-200', 'dark:bg-slate-700');
-            soundToggle.querySelector('span').style.transform = '';
-            Sound.enabled = false;
-        }
+        Sound.enabled = this.settings.sound;
+        this.setToggleState('toggle-sound', this.settings.sound);
 
         // 通知状态
         this.updateNotifyStatus();
@@ -294,6 +285,30 @@ const App = {
         Storage.set('settings', this.settings);
     },
 
+    setToggleState(id, isOn) {
+        const toggle = document.getElementById(id);
+        if (!toggle) return;
+        toggle.classList.toggle('on', isOn);
+        toggle.classList.toggle('bg-primary-500', isOn);
+        toggle.classList.toggle('bg-slate-200', !isOn);
+        toggle.classList.toggle('dark:bg-slate-700', !isOn);
+        toggle.setAttribute('aria-pressed', String(isOn));
+        const knob = toggle.querySelector('span');
+        if (knob) knob.style.transform = isOn ? 'translateX(20px)' : '';
+    },
+
+    updateIntervalButtons() {
+        document.querySelectorAll('.interval-btn').forEach(btn => {
+            const active = parseInt(btn.dataset.interval) === this.settings.interval;
+            btn.classList.toggle('active', active);
+            btn.setAttribute('aria-pressed', String(active));
+        });
+        const summary = document.getElementById('interval-summary');
+        if (summary) {
+            summary.textContent = `当前每 ${this.settings.interval} 分钟提醒一次`;
+        }
+    },
+
     // 初始化深色模式
     initDarkMode() {
         const saved = Storage.get('dark');
@@ -302,9 +317,8 @@ const App = {
         this.settings.dark = isDark;
         if (isDark) {
             document.documentElement.classList.add('dark');
-            document.getElementById('toggle-dark').classList.add('on');
-            document.getElementById('toggle-dark').querySelector('span').classList.add('translate-x-5');
         }
+        this.setToggleState('toggle-dark', isDark);
     },
 
     // 绑定事件
@@ -322,9 +336,8 @@ const App = {
         // 提醒间隔
         document.querySelectorAll('.interval-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.interval-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
                 this.settings.interval = parseInt(btn.dataset.interval);
+                this.updateIntervalButtons();
                 this.saveSettings();
                 this.recalcNextReminder();
                 this.updateDashboard();
@@ -343,12 +356,12 @@ const App = {
 
         // 免打扰开关
         document.getElementById('toggle-dnd').addEventListener('click', () => {
-            const toggle = document.getElementById('toggle-dnd');
             this.settings.dndEnabled = !this.settings.dndEnabled;
-            toggle.classList.toggle('on');
+            this.setToggleState('toggle-dnd', this.settings.dndEnabled);
             document.getElementById('dnd-time').classList.toggle('opacity-50', !this.settings.dndEnabled);
             document.getElementById('dnd-time').classList.toggle('pointer-events-none', !this.settings.dndEnabled);
             this.saveSettings();
+            this.recalcNextReminder();
         });
 
         document.getElementById('dnd-start').addEventListener('change', e => {
@@ -371,44 +384,36 @@ const App = {
 
         // 音效开关
         document.getElementById('toggle-sound').addEventListener('click', () => {
-            const toggle = document.getElementById('toggle-sound');
             this.settings.sound = !this.settings.sound;
             Sound.enabled = this.settings.sound;
+            this.setToggleState('toggle-sound', this.settings.sound);
             if (this.settings.sound) {
-                toggle.classList.add('bg-primary-500');
-                toggle.classList.remove('bg-slate-200', 'dark:bg-slate-700');
-                toggle.querySelector('span').style.transform = 'translateX(20px)';
                 Sound.play('ding');
-            } else {
-                toggle.classList.remove('bg-primary-500');
-                toggle.classList.add('bg-slate-200', 'dark:bg-slate-700');
-                toggle.querySelector('span').style.transform = '';
             }
             this.saveSettings();
         });
 
         // 深色模式
         document.getElementById('toggle-dark').addEventListener('click', () => {
-            const toggle = document.getElementById('toggle-dark');
             this.settings.dark = !this.settings.dark;
             document.documentElement.classList.toggle('dark');
-            toggle.classList.toggle('on');
-            toggle.querySelector('span').classList.toggle('translate-x-5');
+            this.setToggleState('toggle-dark', this.settings.dark);
             Storage.set('dark', this.settings.dark);
             this.saveSettings();
         });
 
         // 重置数据
         document.getElementById('btn-reset').addEventListener('click', () => {
-            if (confirm('确定要清空所有运动记录和设置吗？此操作不可恢复！')) {
-                ['settings', 'logs', 'stats', 'dark'].forEach(k => Storage.remove(k));
-                location.reload();
-            }
+            this.openResetConfirm();
         });
 
         // 弹窗按钮
         document.getElementById('btn-skip').addEventListener('click', () => this.closeReminder(false));
         document.getElementById('btn-done').addEventListener('click', () => this.completeExercise());
+        document.getElementById('btn-change-exercise').addEventListener('click', () => this.changeExercise());
+        document.getElementById('btn-snooze').addEventListener('click', () => this.snoozeReminder());
+        document.getElementById('btn-reset-cancel').addEventListener('click', () => this.closeResetConfirm());
+        document.getElementById('btn-reset-confirm').addEventListener('click', () => this.resetAllData());
         document.getElementById('btn-achievement-ok').addEventListener('click', () => {
             document.getElementById('achievement-overlay').classList.remove('show');
             setTimeout(() => {
@@ -422,6 +427,35 @@ const App = {
                 document.getElementById('btn-achievement-ok').click();
             }
         });
+
+        document.getElementById('confirm-overlay').addEventListener('click', e => {
+            if (e.target === document.getElementById('confirm-overlay')) {
+                this.closeResetConfirm();
+            }
+        });
+    },
+
+    openResetConfirm() {
+        const overlay = document.getElementById('confirm-overlay');
+        overlay.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            overlay.classList.add('show');
+            document.getElementById('btn-reset-cancel').focus();
+        });
+    },
+
+    closeResetConfirm() {
+        const overlay = document.getElementById('confirm-overlay');
+        overlay.classList.remove('show');
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+            document.getElementById('btn-reset').focus();
+        }, 200);
+    },
+
+    resetAllData() {
+        ['settings', 'logs', 'stats', 'dark', 'streak', 'lastCheck'].forEach(k => Storage.remove(k));
+        location.reload();
     },
 
     // 更新通知状态文字
@@ -451,6 +485,7 @@ const App = {
         document.getElementById(`view-${viewName}`).classList.remove('hidden');
         document.querySelectorAll('.nav-tab').forEach(tab => {
             const isActive = tab.dataset.view === viewName;
+            tab.setAttribute('aria-selected', String(isActive));
             tab.classList.toggle('bg-white', isActive);
             tab.classList.toggle('dark:bg-slate-700', isActive);
             tab.classList.toggle('shadow-sm', isActive);
@@ -741,12 +776,30 @@ const App = {
         }
 
         // 随机选一个动作（或指定）
-        const ex = specificExercise || EXERCISES[Math.floor(Math.random() * EXERCISES.length)];
+        this.setReminderExercise(specificExercise || this.getRandomExercise());
+
+        // 显示弹窗
+        const overlay = document.getElementById('reminder-overlay');
+        overlay.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            overlay.classList.add('show');
+            document.getElementById('btn-done').focus();
+        });
+    },
+
+    getRandomExercise(excludeId = null) {
+        const pool = EXERCISES.filter(ex => ex.id !== excludeId);
+        const list = pool.length > 0 ? pool : EXERCISES;
+        return list[Math.floor(Math.random() * list.length)];
+    },
+
+    setReminderExercise(ex) {
         this.state.currentExercise = ex;
 
         // 填充弹窗内容
         document.getElementById('exercise-name').textContent = ex.name;
         document.getElementById('exercise-desc').textContent = ex.desc;
+        document.getElementById('reminder-status').textContent = '跟着动作做完后点“已完成”';
 
         // 设置动作演示（GIF 优先，SVG 回退）
         const figureBox = document.getElementById('exercise-figure-box');
@@ -760,13 +813,23 @@ const App = {
             </div>
         `).join('');
 
-        // 显示弹窗
-        const overlay = document.getElementById('reminder-overlay');
-        overlay.classList.remove('hidden');
-        requestAnimationFrame(() => overlay.classList.add('show'));
-
         // 开始倒计时
         this.startCountdown(ex.duration);
+        lucide.createIcons();
+    },
+
+    changeExercise() {
+        if (!this.state.reminderOpen) return;
+        const next = this.getRandomExercise(this.state.currentExercise?.id);
+        this.setReminderExercise(next);
+        document.getElementById('reminder-status').textContent = `已换成「${next.name}」`;
+    },
+
+    snoozeReminder() {
+        const snoozeMinutes = 5;
+        this.state.nextReminderTime = Date.now() + snoozeMinutes * 60 * 1000;
+        document.getElementById('reminder-status').textContent = `${snoozeMinutes} 分钟后再提醒你`;
+        this.closeReminder(false, { keepNextReminder: true });
     },
 
     startCountdown(seconds) {
@@ -801,7 +864,7 @@ const App = {
         }, 1000);
     },
 
-    closeReminder(completed) {
+    closeReminder(completed, options = {}) {
         const overlay = document.getElementById('reminder-overlay');
         overlay.classList.remove('show');
         if (this.state.countdownTimer) {
@@ -812,7 +875,9 @@ const App = {
             overlay.classList.add('hidden');
             this.state.reminderOpen = false;
             this.state.workStartTime = Date.now(); // 重置工作计时
-            this.recalcNextReminder();
+            if (!options.keepNextReminder) {
+                this.recalcNextReminder();
+            }
             this.updateDashboard();
         }, 300);
     },

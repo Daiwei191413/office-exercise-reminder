@@ -38,14 +38,14 @@
                 </div>
                 <h1 class="font-bold text-lg tracking-tight">运动小助手</h1>
             </div>
-            <nav class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 rounded-full p-1">
-                <button data-view="dashboard" class="nav-tab px-4 py-1.5 rounded-full text-sm font-medium transition-all bg-white dark:bg-slate-700 shadow-sm text-primary-600 dark:text-primary-400">
+            <nav class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 rounded-full p-1" role="tablist" aria-label="主要页面">
+                <button type="button" data-view="dashboard" role="tab" aria-selected="true" class="nav-tab px-4 py-1.5 rounded-full text-sm font-medium transition-all bg-white dark:bg-slate-700 shadow-sm text-primary-600 dark:text-primary-400">
                     仪表盘
                 </button>
-                <button data-view="exercises" class="nav-tab px-4 py-1.5 rounded-full text-sm font-medium transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
+                <button type="button" data-view="exercises" role="tab" aria-selected="false" class="nav-tab px-4 py-1.5 rounded-full text-sm font-medium transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
                     运动库
                 </button>
-                <button data-view="settings" class="nav-tab px-4 py-1.5 rounded-full text-sm font-medium transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
+                <button type="button" data-view="settings" role="tab" aria-selected="false" class="nav-tab px-4 py-1.5 rounded-full text-sm font-medium transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">
                     设置
                 </button>
             </nav>
@@ -157,17 +157,18 @@
                 <div class="p-5 border-b border-slate-100 dark:border-slate-700">
                     <label class="block text-sm font-medium mb-3">提醒间隔</label>
                     <div class="grid grid-cols-4 gap-2">
-                        <button data-interval="30" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary-300">30分</button>
-                        <button data-interval="45" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary-300">45分</button>
-                        <button data-interval="60" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-primary-500 text-primary-600 bg-primary-50 dark:bg-primary-900/20">60分</button>
-                        <button data-interval="90" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary-300">90分</button>
+                        <button type="button" data-interval="30" aria-pressed="false" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary-300">30分</button>
+                        <button type="button" data-interval="45" aria-pressed="false" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary-300">45分</button>
+                        <button type="button" data-interval="60" aria-pressed="true" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-primary-500 text-primary-600 bg-primary-50 dark:bg-primary-900/20">60分</button>
+                        <button type="button" data-interval="90" aria-pressed="false" class="interval-btn px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary-300">90分</button>
                     </div>
+                    <p id="interval-summary" class="text-xs text-slate-400 mt-2">下一次提醒会按当前节奏重新计算</p>
                 </div>
 
                 <!-- 每日目标 -->
                 <div class="p-5 border-b border-slate-100 dark:border-slate-700">
-                    <label class="block text-sm font-medium mb-3">每日运动目标（次）</label>
-                    <input type="range" id="target-slider" min="4" max="16" step="1" value="8" class="w-full accent-primary-500 mb-2">
+                    <label for="target-slider" class="block text-sm font-medium mb-3">每日运动目标（次）</label>
+                    <input type="range" id="target-slider" min="4" max="16" step="1" value="8" aria-describedby="target-display" class="w-full accent-primary-500 mb-2">
                     <div class="flex justify-between text-xs text-slate-400">
                         <span>4次</span>
                         <span id="target-display" class="text-primary-600 dark:text-primary-400 font-bold text-base">8 次</span>
@@ -178,18 +179,18 @@
                 <!-- 免打扰 -->
                 <div class="p-5 border-b border-slate-100 dark:border-slate-700">
                     <div class="flex items-center justify-between mb-3">
-                        <label class="text-sm font-medium">免打扰模式</label>
-                        <button id="toggle-dnd" class="relative w-12 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors">
+                        <label id="label-dnd" class="text-sm font-medium">免打扰模式</label>
+                        <button type="button" id="toggle-dnd" class="toggle-btn relative w-12 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors" aria-labelledby="label-dnd" aria-pressed="false">
                             <span class="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow transition-transform"></span>
                         </button>
                     </div>
                     <div id="dnd-time" class="grid grid-cols-2 gap-3 opacity-50 pointer-events-none transition-opacity">
                         <div>
-                            <label class="text-xs text-slate-500 dark:text-slate-400 mb-1 block">开始时间</label>
+                            <label for="dnd-start" class="text-xs text-slate-500 dark:text-slate-400 mb-1 block">开始时间</label>
                             <input type="time" id="dnd-start" value="12:00" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm">
                         </div>
                         <div>
-                            <label class="text-xs text-slate-500 dark:text-slate-400 mb-1 block">结束时间</label>
+                            <label for="dnd-end" class="text-xs text-slate-500 dark:text-slate-400 mb-1 block">结束时间</label>
                             <input type="time" id="dnd-end" value="13:30" class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm">
                         </div>
                     </div>
@@ -202,19 +203,19 @@
                             <p class="text-sm font-medium">浏览器通知</p>
                             <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">后台运行时也能收到提醒</p>
                         </div>
-                        <button id="btn-notify-perm" class="px-4 py-2 rounded-lg bg-accent-50 dark:bg-accent-900/20 text-accent-600 dark:text-accent-400 text-sm font-medium hover:bg-accent-100 transition-colors">
+                        <button type="button" id="btn-notify-perm" class="px-4 py-2 rounded-lg bg-accent-50 dark:bg-accent-900/20 text-accent-600 dark:text-accent-400 text-sm font-medium hover:bg-accent-100 transition-colors">
                             申请权限
                         </button>
                     </div>
-                    <p id="notify-status" class="text-xs mt-2 text-slate-400"></p>
+                    <p id="notify-status" class="text-xs mt-2 text-slate-400" role="status"></p>
                 </div>
 
                 <!-- 提示音 -->
                 <div class="p-5 border-b border-slate-100 dark:border-slate-700">
                     <div class="flex items-center justify-between">
-                        <label class="text-sm font-medium">提示音效</label>
-                        <button id="toggle-sound" class="relative w-12 h-7 rounded-full bg-primary-500 transition-colors">
-                            <span class="absolute left-6 top-1 w-5 h-5 bg-white rounded-full shadow transition-transform"></span>
+                        <label id="label-sound" class="text-sm font-medium">提示音效</label>
+                        <button type="button" id="toggle-sound" class="toggle-btn relative w-12 h-7 rounded-full bg-primary-500 transition-colors" aria-labelledby="label-sound" aria-pressed="true">
+                            <span class="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow transition-transform"></span>
                         </button>
                     </div>
                 </div>
@@ -222,8 +223,8 @@
                 <!-- 主题 -->
                 <div class="p-5">
                     <div class="flex items-center justify-between">
-                        <label class="text-sm font-medium">深色模式</label>
-                        <button id="toggle-dark" class="relative w-12 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors">
+                        <label id="label-dark" class="text-sm font-medium">深色模式</label>
+                        <button type="button" id="toggle-dark" class="toggle-btn relative w-12 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors" aria-labelledby="label-dark" aria-pressed="false">
                             <span class="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow transition-transform dark:translate-x-5"></span>
                         </button>
                     </div>
@@ -236,7 +237,7 @@
                     <h2 class="font-bold text-lg">数据管理</h2>
                 </div>
                 <div class="p-5">
-                    <button id="btn-reset" class="w-full py-3 rounded-xl border-2 border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 font-medium hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors flex items-center justify-center gap-2">
+                    <button type="button" id="btn-reset" class="w-full py-3 rounded-xl border-2 border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 font-medium hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors flex items-center justify-center gap-2">
                         <i data-lucide="trash-2" class="w-4 h-4"></i>
                         重置所有数据
                     </button>
@@ -247,7 +248,7 @@
     </main>
 
     <!-- 全屏运动提醒弹窗 -->
-    <div id="reminder-overlay" class="fixed inset-0 z-50 hidden">
+    <div id="reminder-overlay" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="reminder-title" aria-describedby="exercise-desc">
         <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm transition-opacity opacity-0" id="reminder-backdrop"></div>
         <div class="relative h-full flex items-center justify-center p-4">
             <div id="reminder-card" class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden transform scale-95 opacity-0 transition-all duration-500">
@@ -259,7 +260,7 @@
                             <i data-lucide="alarm-clock" class="w-7 h-7"></i>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold">该运动啦！</h2>
+                            <h2 id="reminder-title" class="text-xl font-bold">该运动啦！</h2>
                             <p class="text-white/90 text-sm">久坐伤身，起来动一动</p>
                         </div>
                     </div>
@@ -395,12 +396,24 @@
                         <!-- 动态生成 -->
                     </div>
 
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <button type="button" id="btn-change-exercise" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="shuffle" class="w-4 h-4"></i>
+                            换个动作
+                        </button>
+                        <button type="button" id="btn-snooze" class="py-2.5 rounded-xl bg-warn-50 dark:bg-warn-900/20 text-warn-600 dark:text-warn-400 text-sm font-medium hover:bg-warn-100 dark:hover:bg-warn-900/30 transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="clock-3" class="w-4 h-4"></i>
+                            5 分钟后
+                        </button>
+                    </div>
+                    <p id="reminder-status" class="text-xs text-center text-slate-400 mb-4" role="status">跟着动作做完后点“已完成”</p>
+
                     <!-- 按钮 -->
                     <div class="flex gap-3">
-                        <button id="btn-skip" class="flex-1 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        <button type="button" id="btn-skip" class="flex-1 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                             跳过
                         </button>
-                        <button id="btn-done" class="flex-1 py-3 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 transition-all flex items-center justify-center gap-2">
+                        <button type="button" id="btn-done" class="flex-1 py-3 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 transition-all flex items-center justify-center gap-2">
                             <i data-lucide="check" class="w-5 h-5"></i>
                             已完成
                         </button>
@@ -411,7 +424,7 @@
     </div>
 
     <!-- 成就弹窗 -->
-    <div id="achievement-overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div id="achievement-overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="achievement-title" aria-describedby="achievement-desc">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
         <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-sm w-full p-8 text-center transform scale-95 opacity-0 transition-all duration-500" id="achievement-card">
             <div class="w-16 h-16 mx-auto bg-warn-100 dark:bg-warn-900/30 rounded-full flex items-center justify-center text-warn-500 mb-4 text-3xl">
@@ -419,9 +432,25 @@
             </div>
             <h3 class="text-xl font-bold mb-2" id="achievement-title">太棒了！</h3>
             <p class="text-slate-500 dark:text-slate-400 text-sm mb-6" id="achievement-desc">今日第 1 次运动打卡成功</p>
-            <button id="btn-achievement-ok" class="w-full py-3 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium shadow-lg shadow-primary-500/30 transition-all">
+            <button type="button" id="btn-achievement-ok" class="w-full py-3 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium shadow-lg shadow-primary-500/30 transition-all">
                 继续加油
             </button>
+        </div>
+    </div>
+
+    <!-- 重置确认弹窗 -->
+    <div id="confirm-overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div id="confirm-card" class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-sm w-full p-6 transform scale-95 opacity-0 transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-900/20 text-rose-500 flex items-center justify-center mb-4">
+                <i data-lucide="trash-2" class="w-6 h-6"></i>
+            </div>
+            <h3 id="confirm-title" class="text-lg font-bold mb-2">重置所有数据？</h3>
+            <p id="confirm-desc" class="text-sm text-slate-500 dark:text-slate-400 mb-5">这会清空运动记录、连续天数、提醒设置和主题偏好，操作后不可恢复。</p>
+            <div class="flex gap-3">
+                <button type="button" id="btn-reset-cancel" class="flex-1 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">取消</button>
+                <button type="button" id="btn-reset-confirm" class="flex-1 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-medium shadow-lg shadow-rose-500/20 transition-colors">确认重置</button>
+            </div>
         </div>
     </div>
 
